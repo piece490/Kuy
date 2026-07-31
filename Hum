@@ -1,0 +1,68 @@
+-- โหลด Rayfield Library
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- สร้าง Window หลัก
+local Window = Rayfield:CreateWindow({
+   Name = "Lucky Block Spawner Hub",
+   LoadingTitle = "กำลังโหลดระบบ...",
+   LoadingSubtitle = "โดย AI Collaborator",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil,
+      FileName = "LuckyBlockHub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvite",
+      RememberJoins = true
+   },
+   KeySystem = false,
+})
+
+-- สร้าง Tab หลัก
+local Tab = Window:CreateTab("Main", 4483362458)
+
+-- สร้าง Section: Galaxy Block
+Tab:CreateSection("Galaxy Block")
+
+local autoGalaxy = false
+Tab:CreateToggle({
+   Name = "ออโต้สปอน Galaxy Block (รัวๆ)",
+   CurrentValue = false,
+   Flag = "AutoGalaxy",
+   Callback = function(Value)
+      autoGalaxy = Value
+      task.spawn(function()
+         while autoGalaxy do
+            pcall(function()
+               game:GetService("ReplicatedStorage"):WaitForChild("SpawnGalaxyBlock"):FireServer()
+            end)
+            task.wait(0.1) -- ปรับความเร็วตรงนี้ได้ (เลขน้อยยิ่งรัว)
+         end
+      end)
+   end,
+})
+
+-- สร้าง Section: Rainbow Block
+Tab:CreateSection("Rainbow Block")
+
+local autoRainbow = false
+Tab:CreateToggle({
+   Name = "ออโต้สปอน Rainbow Block (รัวๆ)",
+   CurrentValue = false,
+   Flag = "AutoRainbow",
+   Callback = function(Value)
+      autoRainbow = Value
+      task.spawn(function()
+         while autoRainbow do
+            pcall(function()
+               game:GetService("ReplicatedStorage"):WaitForChild("SpawnRainbowBlock"):FireServer()
+            end)
+            task.wait(0.1) -- ปรับความเร็วตรงนี้ได้ (เลขน้อยยิ่งรัว)
+         end
+      end)
+   end,
+})
+
+-- โหลดข้อมูล UI ทั้งหมด
+Rayfield:LoadConfiguration()
