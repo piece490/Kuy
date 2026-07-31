@@ -1,0 +1,88 @@
+-- โหลด Rayfield Library
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- สร้าง Window หลัก
+local Window = Rayfield:CreateWindow({
+   Name = "Block Spawner Hub",
+   LoadingTitle = "กำลังโหลดระบบ...",
+   LoadingSubtitle = "โดย AI Collaborator",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil,
+      FileName = "BlockSpawnerHub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvite",
+      RememberJoins = true
+   },
+   KeySystem = false,
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided",
+      FileName = "Key",
+      SaveKey = true,
+      GrabKeyFromSite = false,
+      Key = {"1234"}
+   }
+})
+
+-- สร้าง Tab หลัก
+local Tab = Window:CreateTab("Main", 4483362458) -- ไอคอน Tab
+
+-- สร้าง Section
+local Section = Tab:CreateSection("ฟังก์ชันสปอนบล็อก")
+
+-- ปุ่มที่ 1: Spawn Galaxy Block
+Tab:CreateButton({
+   Name = "Spawn Galaxy Block",
+   Callback = function()
+      local success, err = pcall(function()
+         game:GetService("ReplicatedStorage"):WaitForChild("SpawnGalaxyBlock"):FireServer()
+      end)
+      if success then
+         Rayfield:Notify({
+            Title = "สำเร็จ!",
+            Content = "สปอน Galaxy Block เรียบร้อยแล้ว",
+            Duration = 2,
+            Image = 4483362458,
+         })
+      else
+         Rayfield:Notify({
+            Title = "เกิดข้อผิดพลาด",
+            Content = "ไม่สามารถหา RemoteEvent ได้",
+            Duration = 2,
+            Image = 4483362458,
+         })
+      end
+   end,
+})
+
+-- ปุ่มที่ 2: Spawn Rainbow Block
+Tab:CreateButton({
+   Name = "Spawn Rainbow Block",
+   Callback = function()
+      local success, err = pcall(function()
+         game:GetService("ReplicatedStorage"):WaitForChild("SpawnRainbowBlock"):FireServer()
+      end)
+      if success then
+         Rayfield:Notify({
+            Title = "สำเร็จ!",
+            Content = "สปอน Rainbow Block เรียบร้อยแล้ว",
+            Duration = 2,
+            Image = 4483362458,
+         })
+      else
+         Rayfield:Notify({
+            Title = "เกิดข้อผิดพลาด",
+            Content = "ไม่สามารถหา RemoteEvent ได้",
+            Duration = 2,
+            Image = 4483362458,
+         })
+      end
+   end,
+})
+
+-- โหลดข้อมูล UI ทั้งหมด
+Rayfield:LoadConfiguration()
